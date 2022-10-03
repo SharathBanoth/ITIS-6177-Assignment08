@@ -37,7 +37,8 @@ const pool = mariadb.createPool({
 
 /**
  * @swagger
- *      get: /
+ *      /:
+ *      get:
  *          description: Landing page
  *          produces:
  *              -JSON
@@ -51,18 +52,14 @@ expressApp.get('/', (req,res) => {
 
 /**
  * @swagger
- * /agents:
- *   get:
- *     summary: Returns all the agents from DB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
+ *      /agents:
+ *      get:
+ *          description: GET's all the records from sample.agents DB
+ *          produces:
+ *              -JSON
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
 expressApp.get('/agents', async (req, res) => {
     try {
@@ -78,18 +75,14 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /company:
- *   get:
- *     summary: Returns all the company from DB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
+ *      /company:
+ *      get:
+ *          description: GET's all the records from sample.company DB
+ *          produces:
+ *              -JSON
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.get('/company', async (req, res) => {        
     try {                                               
@@ -106,18 +99,14 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /customer:
- *   get:
- *     summary: Returns all the customer from DB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
+ *      /customer:
+ *      get:
+ *          description: GET's all the records from sample.customer DB
+ *          produces:
+ *              -JSON
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.get('/customer', async (req, res) => {          
     try {                                                  
@@ -134,28 +123,16 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /addagent:
- *   post:
- *     summary: adds an agent record to agentDB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 description: The company's id.
- *               name:
- *                 type: string
- *                 description: The company's name.
- *               area:
- *                 type: string
- *                 description: The company's city.
+ *      /addagent:
+ *      post:
+ *          description: POST's a records INTO sample.agents DB
+ *          produces:
+ *              -JSON
+ *          parameters:
+ *              [AGENT_CODE, AGENT_NAME, WORKING_AREA, COMMISSION]
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.post('/addagent', async (req, res) => {
     try {
@@ -183,28 +160,16 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /addcompany:
- *   post:
- *     summary: adds a company record to companyDB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 description: The company's id.
- *               name:
- *                 type: string
- *                 description: The company's name.
- *               city:
- *                 type: string
- *                 description: The company's city.
+ *      /addcompany:
+ *      post:
+ *          description: POST's a records INTO sample.company DB
+ *          produces:
+ *              -JSON
+ *          parameters:
+ *              [COMPANY_ID, COMPANY_NAME, COMPANY_CITY]
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.post('/addcompany', async (req, res) => {
     try {
@@ -229,25 +194,16 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /company/{id}:
- *   put:
- *     summary: adds a company record to companyDB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The company's name.
- *               city:
- *                 type: string
- *                 description: The company's city.
+ *      /company/{id}:
+ *      put:
+ *          description: PUT's a records FROM sample.company DB
+ *          produces:
+ *              -JSON
+ *          parameters:
+ *              [COMPANY_ID, COMPANY_NAME, COMPANY_CITY]
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.put('/company/:id', async (req, res) => {
     try {
@@ -271,22 +227,16 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /agent/{id}:
- *   patch:
- *     summary: adds a company record to companyDB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The company's name.
+ *      /agent/{id}:
+ *      patch:
+ *          description: PATCH's a records value FROM sample.agents DB
+ *          produces:
+ *              -JSON
+ *          parameters:
+ *              [COMPANY_ID, COMPANY_NAME, COMPANY_CITY]
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.patch('/agent/:id', async (req, res) => {
     try {
@@ -307,19 +257,16 @@ expressApp.get('/agents', async (req, res) => {
 
 /**
  * @swagger
- * /agent/{id}:
- *   delete:
- *     summary: deletes an agent record to companyDB
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *
+ *      /agent/{id}:
+ *      delete:
+ *          description: DELETE's a records FROM sample.agents DB
+ *          produces:
+ *              -JSON
+ *          parameters:
+ *              [COMPANY_ID, COMPANY_NAME, COMPANY_CITY]
  *          responses:
  *              status: 200 OK
- *              description: requested query successfully retrieved the results
+ *              description: Successfully retrieved query result(s)
  */
  expressApp.delete('/agent/:id', async (req, res) => {
     try {
