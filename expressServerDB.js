@@ -1,6 +1,7 @@
 const express = require("express");
 const expressApp = express();
 const port =3000;
+const axios = require('axios');
 
 expressApp.use(express.json());
 expressApp.use(express.urlencoded({extended:false}));
@@ -20,7 +21,7 @@ const options = {
       basePath: '/'
     },
     apis: ['./expressServerDB.js'],
-  };
+};
 
 const Specification = swaggerJSdoc(options);
 
@@ -279,6 +280,26 @@ expressApp.get('/agents', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+// expressApp.get('/say', async (req, res) => {          
+//     try {                                                      
+//         console.log("In '/say' route");
+//         let keyword = req.query.keyword;
+//         let axiosOut = axios.get('https://7zhiczrwqixekvn6jpjqxveldu0mzxsx.lambda-url.us-east-2.on.aws');
+//         res.status(200).json(axiosOut);                                    
+//     } catch (error) {                                      
+//         console.log(error);                                
+//     }                                                      
+// });
+
+expressApp.get("/say",async(req,res)=>{
+    let urlOfLambdaFunction = "https://7zhiczrwqixekvn6jpjqxveldu0mzxsx.lambda-url.us-east-2.on.aws?keyword="+req.query.keyword;
+    axios.get(urlOfLambdaFunction)
+    .then((response)=>{
+         res.json(response.data);
+        }
+    )
 });
 
 expressApp.listen(port, () => console.log("Express Node JS Server is up n running at port 3000.."));
